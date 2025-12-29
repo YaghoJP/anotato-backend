@@ -1,6 +1,6 @@
-import { AppError } from "../../../shared/errors/AppError";
-import { CreateUserDTO } from "../dtos/CreateUserDTO";
-import { UserRepository } from "../repositories/UserRepository";
+import { AppError } from "../../shared/errors/AppError";
+import { CreateUserDTO } from "../../dtos/user/CreateUserDTO";
+import { UserRepository } from "../../repositories/UserRepository";
 import { hash } from "bcrypt";
 
 class CreateUserService{

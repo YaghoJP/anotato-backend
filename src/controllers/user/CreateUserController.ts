@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../services/CreateUserService";
+import { CreateUserService } from "../../services/user/CreateUserService";
 
 class CreateUserController{
     async handle(req: Request, res: Response){
         const {name, email, password} = req.body;
-
-        console.log("Chegou no controller");
 
         const createUserService = new CreateUserService();
 
