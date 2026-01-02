@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 import { PayloadDTO } from "../dtos/user/AuthUserDTO";
 import { AppError } from "../shared/errors/AppError";
 
-export function authHandler(req: Request, res: Response, next: NextFunction){
+export function authHandler(req: Request, _res: Response, next: NextFunction){
     const authToken = req.headers.authorization;
 
     if(!authToken){
