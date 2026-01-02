@@ -18,6 +18,7 @@ class AuthUserService{
         if(!userExist){
             throw new AppError("User/Password incorret", 400);
         }
+        
         const passwordHashCompare = compare(senha, userExist.password!);
 
         if(!passwordHashCompare){
@@ -30,8 +31,18 @@ class AuthUserService{
                 email: userExist.email
             },
             process.env.JWT_SECRET as string,
-            
+            {
+                subject: userExist.id,
+                expiresIn: "30d"
+            }
         );
+
+        return{
+            id:userExist.id,
+            name:userExist.name,
+            email:userExist.email,
+            token:token
+        };
 
     }
 }
