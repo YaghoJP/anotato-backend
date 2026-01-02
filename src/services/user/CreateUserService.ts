@@ -13,6 +13,8 @@ class CreateUserService{
         
         const userExist = await this.userRepo.findFirst("", dto.email)
 
+        console.log(["Teste:", dto.email,userExist]);
+
         if(userExist){
             throw new AppError("user already exists", 400)
         }

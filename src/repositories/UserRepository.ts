@@ -1,4 +1,4 @@
-import prismaClient from "../../../prisma";
+import prismaClient from "../prisma/index";
 
 interface CreateUserRepositoryProps{
     name:string,
@@ -25,16 +25,18 @@ class UserRepository{
     }
 
     async findFirst(id:string = "", email:string = ""){
+
         return(
             await prismaClient.user.findFirst({
                 where:{
-                    id,
-                    email
+                    ...(id && { id }),
+                    ...(email && { email })
                 },
                 select:{
                     id:true,
                     name:true,
                     email:true,
+                    password:true,
                     google_id:true,
                     createdAt:true
                 }
