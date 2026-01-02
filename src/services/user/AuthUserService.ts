@@ -1,20 +1,19 @@
 import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { AuthUserDTO } from "../../dtos/user/AuthUserDTO";
-import { UserRepository } from "../../repositories/UserRepository";
+import prismaClient from "../../prisma";
 import { AppError } from "../../shared/errors/AppError";
 
 
 class AuthUserService{
-    private userRepo: UserRepository
-    constructor(){
-        this.userRepo = new UserRepository()
-    }
-
     async execute({email, senha}:AuthUserDTO){
 
-        const userExist = await this.userRepo.findFirst("", email);
-
+        const userExist = await prismaClient.user.findFirst({
+            where:{
+                email:email
+            }
+        });
+        
         if(!userExist){
             throw new AppError("User/Password incorret", 400);
         }

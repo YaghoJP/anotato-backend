@@ -1,6 +1,6 @@
 import { DetailUserDTO } from "../../dtos/user/DetailUserDTO";
+import prismaClient from "../../prisma";
 import { AppError } from "../../shared/errors/AppError";
-import { UserRepository } from "../../repositories/UserRepository";
 
 class DetailUserService{
     async execute({user_id}: DetailUserDTO){
@@ -8,9 +8,11 @@ class DetailUserService{
             throw new AppError("user_id is required");
         }
 
-        const userRep = new UserRepository()
-
-        const user = await userRep.findFirst(user_id, "");
+        const user = await prismaClient.user.findFirst({
+            where:{
+                id:user_id
+            }
+        })
 
         if(!user){
             throw new AppError("User not exists");

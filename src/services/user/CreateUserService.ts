@@ -1,17 +1,17 @@
 import { AppError } from "../../shared/errors/AppError";
 import { CreateUserDTO } from "../../dtos/user/CreateUserDTO";
-import { UserRepository } from "../../repositories/UserRepository";
 import { hash } from "bcrypt";
+import prismaClient from "../../prisma";
 
 class CreateUserService{
-    private userRepo: UserRepository
-    constructor(){
-        this.userRepo = new UserRepository()
-    }
 
     async execute(dto: CreateUserDTO){
         
-        const userExist = await this.userRepo.findFirst("", dto.email)
+        const userExist = await prismaClient.user.findFirst({
+            where:{
+                email:dto.email
+            }
+        });
 
         console.log(["Teste:", dto.email,userExist]);
 
@@ -22,10 +22,18 @@ class CreateUserService{
         const passwordHash = await hash(dto.password, 8);
 
 
-        const newUser = await this.userRepo.create({
-            name:dto.name,
-            email:dto.email,
-            password:passwordHash
+        const newUser = await prismaClient.user.create({
+            data:{
+                name:dto.name,
+                email:dto.email,
+                password:passwordHash
+            },
+            select:{
+                id:true,
+                name:true,
+                email:true,
+                createdAt:true
+            }
         });
 
         if(!newUser){
