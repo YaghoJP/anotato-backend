@@ -12,9 +12,13 @@ export function authHandler(req: Request, _res: Response, next: NextFunction){
 
     const [_, token] = authToken.split(" ");
 
-    const {sub} = verify(token!, process.env.JWT_SECRET as string) as PayloadDTO
+    try{
+        const {sub} = verify(token!, process.env.JWT_SECRET as string) as PayloadDTO
 
-    req.user_id = sub;
+        req.user_id = sub;
 
-    return next();
+        return next();
+    }catch(err: any){
+        throw new AppError("Token is invalid!", 401);
+    }
 }
