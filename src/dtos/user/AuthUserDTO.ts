@@ -6,3 +6,7 @@ export interface AuthUserDTO{
 export interface PayloadDTO{
     sub:string
 }
+
+export interface GoogleAuthDTO{
+    code:string
+}
