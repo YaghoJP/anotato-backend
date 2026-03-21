@@ -1,46 +1,13 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-}
-
-
-model User{
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  password String?
-  google_id String? @unique
-  avatar_url String?
-
-  note Note[]
-
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  @@map("users")
-}
-
-model Note{
-  id String @id @default(uuid())
-  title String
-  content String
-  color String?
-
-  user_id String
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  @@map("notes")
 }
