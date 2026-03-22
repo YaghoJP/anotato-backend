@@ -4,7 +4,7 @@ export default class BaseService {
     }
 
     async getAll(){
-        return this.model.findMany();
+        return await this.model.findMany();
     }
 
 }
