@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15
@@ -14,5 +12,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  backend:
+    build: .
+    container_name: todo_backend
+    restart: always
+    ports:
+      - "3333:3333"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/todo_db
+      JWT_SECRET: f10e7493818735edede2fd5c36311a46
+    volumes:
+      - .:/app
+      - /app/node_modules
 volumes:
   postgres_data:
