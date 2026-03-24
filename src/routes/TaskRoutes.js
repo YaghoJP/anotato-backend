@@ -7,5 +7,6 @@ taskRoutes.get('/', taskController.getAll.bind(taskController));
 taskRoutes.post('/', taskController.create.bind(taskController));
 taskRoutes.put('/:id', taskController.update.bind(taskController));
 taskRoutes.delete('/:id', taskController.delete.bind(taskController));
+taskRoutes.put('/finish/:id', taskController.finishTask.bind(taskController));
 
 export default taskRoutes;
