@@ -6,6 +6,6 @@ import taskRoutes from "./TaskRoutes.js";
 const router = Router();
 
 router.use('/users', userRoutes);
-router.use('/task', taskRoutes);
+router.use('/tasks', taskRoutes);
 
 export default router;
