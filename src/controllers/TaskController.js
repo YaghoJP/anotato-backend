@@ -6,7 +6,7 @@ class TaskController extends Controller{
         super(taskService);
     }
 
-    async finishTask(req, res){
+    async completeTask(req, res){
         try{
            const {id} = req.params;
            const updateRegister = await this.entidadeService.completeTask(id)

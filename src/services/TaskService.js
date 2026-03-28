@@ -64,7 +64,7 @@ class TaskService extends BaseService{
         return task;
     }
 
-    async finishTask(id){
+    async completeTask(id){
 
         await this.getTaskById(id);
 

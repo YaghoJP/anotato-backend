@@ -9,6 +9,6 @@ taskRoutes.get('/user', authMiddleware, taskController.getTaskByUser.bind(taskCo
 taskRoutes.post('/', authMiddleware, taskController.create.bind(taskController));
 taskRoutes.put('/:id', authMiddleware, taskController.update.bind(taskController));
 taskRoutes.delete('/:id', authMiddleware, taskController.delete.bind(taskController));
-taskRoutes.put('/finish/:id', authMiddleware, taskController.finishTask.bind(taskController));
+taskRoutes.put('/complete/:id', authMiddleware, taskController.completeTask.bind(taskController));
 
 export default taskRoutes;
