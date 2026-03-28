@@ -6,6 +6,30 @@ class TaskService extends BaseService{
         super(prismaClient.task)
     }
 
+    async getTaskByUserId(userId){
+        if(!userId){
+            throw new Error("O ID é obrigatório para essa operação.");
+        }
+
+        const user = await prismaClient.user.findFirst({
+            where:{
+                id:userId
+            }
+        });
+
+        if(!user){
+            throw new Error("Usuário não encontrado.");
+        }
+
+        const tasks = await prismaClient.task.findMany({
+            where:{
+                userId:userId
+            }
+        });
+
+        return tasks;
+    }
+
     async getUserById(userId){
         if(!userId){
             throw new Error("O ID é obrigatório para essa operação.");
@@ -55,6 +79,7 @@ class TaskService extends BaseService{
     }
 
     async create(userId, data){
+        console.log(userId, data)
         await this.getUserById(userId);
 
         const create = await this.model.create({
